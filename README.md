@@ -44,9 +44,7 @@ The project follows Infrastructure as Code (IaC) principles and uses Docker Comp
 
 ## Architecture
 
-![Architecture Diagram](docs/architecture.svg)
-
-The architecture follows a Lambda-inspired batch-processing pattern. E-commerce transaction data is ingested through Kafka, stored in HDFS, transformed using Apache Spark, loaded into PostgreSQL feature tables, and finally exposed through a FastAPI service for downstream machine learning applications.
+Architecture diagram available in the `docs/` directory.
 
 ---
 
@@ -58,34 +56,55 @@ olist-ml-feature-pipeline/
 ├── airflow/
 │   └── dags/
 │
-├── producer/
-│
-├── spark/
+├── src/
+│   ├── producer/
+│   ├── spark/
+│   └── api/
 │
 ├── postgres/
-│
-├── api/
-│
 ├── datasets/
-│
 ├── docs/
+│   ├── architecture.png
+│   └── screenshots/
 │
 ├── docker-compose.yml
 ├── requirements.txt
+├── .gitignore
 └── README.md
 ```
+
+## Development Roadmap
+
+### Phase 1 - Completed
+- Architecture design
+- Technology selection
+- Dataset selection
+- Infrastructure planning
+
+### Phase 2 - In Progress
+- Docker Compose environment
+- Kafka ingestion service
+- Spark batch processing jobs
+- PostgreSQL feature store
+- FastAPI service
+- Airflow orchestration
+
+### Phase 3 - Planned
+- End-to-end pipeline validation
+- Performance testing
+- Documentation and project reflection
 
 ### Folder Description
 
 | Folder | Description |
 |----------|----------|
-| airflow | Airflow DAGs and scheduling logic |
-| producer | Kafka ingestion scripts |
-| spark | Batch processing and feature engineering jobs |
-| postgres | Database initialization scripts |
-| api | FastAPI application |
-| datasets | Olist dataset files |
-| docs | Architecture diagrams and project screenshots |
+| airflow | Workflow orchestration and DAG definitions |
+| src/producer | Kafka ingestion services |
+| src/spark | Batch processing and feature engineering jobs |
+| src/api | FastAPI feature delivery service |
+| postgres | Database initialization and schema scripts |
+| datasets | Source datasets used by the pipeline |
+| docs | Architecture diagrams, screenshots, and project evidence |
 
 ---
 
@@ -102,20 +121,7 @@ The dataset contains more than one million timestamped e-commerce records and se
 
 ## Current Project Status
 
-### Completed
-- Architecture design
-- Technology selection
-- Infrastructure planning
-- Dataset selection
-- Phase 1 (Conception Phase)
-
-### In Progress
-- Docker environment setup
-- Kafka implementation
-- Spark batch processing jobs
-- Airflow orchestration
-- PostgreSQL feature store
-- FastAPI service
+This repository is currently in the implementation phase. The architecture and project design have been finalized, and the microservices are being developed incrementally. Progress and screenshots will be documented throughout the implementation process.
 
 ---
 
