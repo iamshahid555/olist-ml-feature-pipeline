@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="300" viewBox="0 0 800 300">
+  <style>
+    .box { fill:#f8f9fa; stroke:#333; stroke-width:1.5px; rx:6px }
+    .label { font: 14px sans-serif; }
+    .arrow { stroke:#333; stroke-width:1.5px; fill:none; marker-end:url(#arrowhead)}
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+
+  <!-- Boxes -->
+  <rect x="40" y="40" width="140" height="60" class="box" />
+  <text x="110" y="75" text-anchor="middle" class="label">Kafka</text>
+
+  <rect x="230" y="40" width="140" height="60" class="box" />
+  <text x="300" y="75" text-anchor="middle" class="label">Spark</text>
+
+  <rect x="420" y="40" width="200" height="60" class="box" />
+  <text x="520" y="75" text-anchor="middle" class="label">PostgreSQL Feature Store</text>
+
+  <rect x="650" y="40" width="120" height="60" class="box" />
+  <text x="710" y="75" text-anchor="middle" class="label">FastAPI</text>
+
+  <rect x="230" y="150" width="140" height="60" class="box" />
+  <text x="300" y="185" text-anchor="middle" class="label">Airflow</text>
+
+  <!-- Arrows -->
+  <path class="arrow" d="M180 70 L230 70" />
+  <path class="arrow" d="M370 70 L420 70" />
+  <path class="arrow" d="M620 70 L650 70" />
+  <path class="arrow" d="M300 110 L300 150" />
+  <path class="arrow" d="M260 150 L150 100" />
+
+</svg>
