@@ -53,25 +53,38 @@ Architecture diagram available in the `docs/` directory.
 ```text
 olist-ml-feature-pipeline/
 │
-├── airflow/
-│   └── dags/
+├── config/
 │
-├── src/
-│   ├── producer/
-│   ├── spark/
-│   └── api/
+├── data/
 │
-├── postgres/
-├── datasets/
 ├── docs/
-│   ├── architecture.png
-│   └── screenshots/
+│   └── architecture.svg
+│
+├── services/
+│   ├── airflow/
+│   ├── fastapi/
+│   ├── kafka/
+│   ├── postgres/
+│   └── spark/
 │
 ├── docker-compose.yml
-├── requirements.txt
 ├── .gitignore
+├── LICENSE
 └── README.md
 ```
+
+### Folder Description
+
+| Folder | Description |
+|----------|----------|
+| config | Shared project configuration files |
+| data | Raw and processed datasets |
+| docs | Architecture diagrams and project documentation |
+| services/airflow | Workflow orchestration and scheduling |
+| services/fastapi | REST API for feature delivery |
+| services/kafka | Data ingestion components |
+| services/postgres | Database initialization and schemas |
+| services/spark | Batch processing and feature engineering |
 
 ## Development Roadmap
 
