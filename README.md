@@ -44,7 +44,7 @@ The project follows Infrastructure as Code (IaC) principles and uses Docker Comp
 
 ## Architecture
 
-Architecture diagram available in the `docs/` directory.
+The architecture diagram for the batch-processing pipeline is available in `docs/architecture.svg` and illustrates the end-to-end data flow from ingestion and storage to feature engineering and delivery.
 
 ---
 
@@ -106,18 +106,6 @@ olist-ml-feature-pipeline/
 - End-to-end pipeline validation
 - Performance testing
 - Documentation and project reflection
-
-### Folder Description
-
-| Folder | Description |
-|----------|----------|
-| airflow | Workflow orchestration and DAG definitions |
-| src/producer | Kafka ingestion services |
-| src/spark | Batch processing and feature engineering jobs |
-| src/api | FastAPI feature delivery service |
-| postgres | Database initialization and schema scripts |
-| datasets | Source datasets used by the pipeline |
-| docs | Architecture diagrams, screenshots, and project evidence |
 
 ---
 
