@@ -89,12 +89,14 @@ olist-ml-feature-pipeline/
 ## Development Roadmap
 
 ### Phase 1 - Completed
+
 - Architecture design
 - Technology selection
 - Dataset selection
 - Infrastructure planning
 
 ### Phase 2 - In Progress
+
 - Docker Compose environment
 - Kafka ingestion service
 - Spark batch processing jobs
@@ -103,6 +105,7 @@ olist-ml-feature-pipeline/
 - Airflow orchestration
 
 ### Phase 3 - Planned
+
 - End-to-end pipeline validation
 - Performance testing
 - Documentation and project reflection
@@ -114,7 +117,7 @@ olist-ml-feature-pipeline/
 **Dataset:** Olist Brazilian E-Commerce Dataset
 
 **Source:**  
-https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
+<https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce>
 
 The dataset contains more than one million timestamped e-commerce records and serves as the source for feature engineering and sales forecasting use cases.
 
