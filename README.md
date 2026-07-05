@@ -1,11 +1,13 @@
 # Olist ML Feature Pipeline
 
-![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
+![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python)
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker)
 ![Kafka](https://img.shields.io/badge/Apache-Kafka-231F20?logo=apachekafka)
 ![Spark](https://img.shields.io/badge/Apache-Spark-E25A1C?logo=apachespark)
 ![Airflow](https://img.shields.io/badge/Apache-Airflow-017CEE?logo=apacheairflow)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql)
+
+A production-inspired batch data engineering project that demonstrates a complete machine learning feature pipeline using Apache Kafka, Apache Spark, PostgreSQL, Apache Airflow, FastAPI, and Docker Compose.
 
 ## Overview
 
@@ -83,9 +85,16 @@ olist-ml-feature-pipeline/
 │
 ├── services/
 │   ├── airflow/
+│   │   └── dags/
 │   ├── fastapi/
+│   │   └── main.py
 │   ├── kafka/
+│   │   ├── producer.py
+│   │   ├── config.py
+│   │   └── README.md
 │   ├── postgres/
+│   │   ├── init.sql
+│   │   └── README.md
 │   └── spark/
 │
 ├── docker-compose.yml
@@ -163,6 +172,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 docker compose up -d
+python services/kafka/producer.py
 ```
 
 ---
@@ -192,6 +202,17 @@ docker compose up -d
 - Infrastructure as Code
 - Feature Engineering
 - Machine Learning Pipelines
+
+---
+
+## Future Enhancements
+
+- Complete Kafka-based data ingestion
+- Implement Apache Spark feature engineering jobs
+- Store engineered features in PostgreSQL
+- Expose feature tables through FastAPI
+- Orchestrate the pipeline with Apache Airflow
+- Improve monitoring, logging, and automated testing
 
 ---
 
