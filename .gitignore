@@ -148,9 +148,15 @@ activemq-data/
 *.sage.py
 
 # Environments
-.env
+# Environment configuration
+# Keep .env in version control for this university project because it contains
+# only local development configuration.
+# .env
+.env.local
+.env.*.local
 .envrc
-.venv
+.venv/
+.venv-1/
 env/
 venv/
 ENV/
@@ -216,3 +222,23 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# macOS
+.DS_Store
+
+# Docker
+*.pid
+
+# Data pipeline outputs
+/data/processed/*
+!/data/processed/.gitkeep
+
+# Airflow
+airflow.db
+
+# Local IDE settings
+.vscode/settings.json
+
+# Olist dataset
+data/raw/*.csv
+!data/raw/.gitkeep
