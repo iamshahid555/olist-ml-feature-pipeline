@@ -13,6 +13,22 @@ Olist ML Feature Pipeline is a batch-processing data engineering project that bu
 
 The project follows Infrastructure as Code (IaC) principles and uses Docker Compose to deploy isolated services for ingestion, storage, processing, orchestration, and delivery.
 
+## Implementation Status
+
+This project is being developed incrementally following an infrastructure-first approach.
+
+| Component | Status |
+|----------|:------:|
+| Project Structure | ✅ |
+| Docker Compose | ✅ |
+| PostgreSQL | ✅ |
+| Apache Kafka | ✅ |
+| Dataset Preparation | ✅ |
+| Kafka Producer | 🔄 In Progress |
+| Apache Spark | ⏳ Planned |
+| FastAPI | ⏳ Planned |
+| Apache Airflow | ⏳ Planned |
+
 ---
 
 ## Project Goals
@@ -58,9 +74,12 @@ olist-ml-feature-pipeline/
 ├── config/
 │
 ├── data/
+│   ├── raw/
+│   └── processed/
 │
 ├── docs/
-│   └── architecture.svg
+│   ├── architecture.svg
+│   └── screenshots/
 │
 ├── services/
 │   ├── airflow/
@@ -123,6 +142,8 @@ olist-ml-feature-pipeline/
 **Source:**  
 <https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce>
 
+> **Note:** The Olist dataset is intentionally not included in this repository because of its size. Download the dataset from Kaggle and extract all CSV files into `data/raw/` before running the project.
+
 The complete Olist Brazilian E-Commerce dataset is stored locally under `data/raw/`. Processed datasets and engineered feature tables generated during the pipeline execution will be written to `data/processed/`.
 
 ---
@@ -138,13 +159,23 @@ The project is currently in the implementation phase. Docker Compose, PostgreSQL
 ```bash
 git clone https://github.com/iamshahid555/olist-ml-feature-pipeline.git
 cd olist-ml-feature-pipeline
-```
-
-```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 docker compose up -d
 ```
 
-Ensure Docker Desktop is running before starting the services. The required Olist dataset should be downloaded from Kaggle and extracted into the `data/raw/` directory before executing the ingestion pipeline.
+---
+
+## Project Highlights
+
+- Modular microservices architecture
+- Docker Compose based Infrastructure as Code (IaC)
+- Apache Kafka for data ingestion
+- PostgreSQL feature store
+- Apache Spark based feature engineering (planned)
+- Apache Airflow workflow orchestration (planned)
+- FastAPI service for feature delivery (planned)
 
 ---
 
