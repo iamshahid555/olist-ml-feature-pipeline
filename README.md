@@ -26,7 +26,7 @@ This project is being developed incrementally following an infrastructure-first 
 | PostgreSQL | ✅ |
 | Apache Kafka | ✅ |
 | Dataset Preparation | ✅ |
-| Kafka Producer | 🔄 In Progress |
+| Kafka Producer | ✅ |
 | Apache Spark | ⏳ Planned |
 | FastAPI | ⏳ Planned |
 | Apache Airflow | ⏳ Planned |
