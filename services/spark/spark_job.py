@@ -8,6 +8,7 @@ from config import (
 )
 
 from feature_engineering import create_features
+from preprocessing import clean_orders
 
 
 def main():
@@ -27,11 +28,17 @@ def main():
         inferSchema=True
     )
 
-    print(f"Loaded {df.count()} records")
+    print(f"Original rows: {df.count()}")
+
+    df = clean_orders(df)
+
+    print(f"Rows after preprocessing: {df.count()}")
 
     features = create_features(df)
 
     print("Generated features")
+
+    features.printSchema()
 
     features.show(5, truncate=False)
 
