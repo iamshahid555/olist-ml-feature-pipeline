@@ -29,9 +29,9 @@ This project is being developed incrementally following an infrastructure-first 
 | Apache Kafka Consumer | ✅ |
 | Apache Spark Preprocessing | ✅ |
 | Apache Spark Feature Engineering | ✅ |
-| Parquet Feature Store | ✅ |
-| PostgreSQL Feature Store | 🔄 In Progress |
-| FastAPI | ⏳ Planned |
+| Apache Parquet Feature Store | ✅ |
+| PostgreSQL Feature Store | ✅ |
+| FastAPI | 🔄 In Progress |
 | Apache Airflow | ⏳ Planned |
 
 ---
@@ -75,18 +75,6 @@ The current implementation focuses on the infrastructure and data ingestion stag
 ## Repository Structure
 
 ```text
-olist-ml-feature-pipeline/
-│
-├── config/
-│
-├── data/
-│   ├── raw/
-│   └── processed/
-│
-├── docs/
-│   ├── architecture.svg
-│   └── screenshots/
-│
 ├── services/
 │   ├── airflow/
 │   │   └── dags/
@@ -98,20 +86,19 @@ olist-ml-feature-pipeline/
 │   │   └── config.py
 │   ├── postgres/
 │   │   ├── init.sql
-│   │   └── db.py
+│   │   ├── db.py
+│   │   └── __init__.py
 │   └── spark/
 │       ├── spark_job.py
 │       ├── preprocessing.py
 │       ├── feature_engineering.py
+│       ├── postgres_writer.py
 │       ├── config.py
 │       ├── requirements.txt
 │       └── __init__.py
 │
-├── docker-compose.yml
-├── requirements.txt
-├── .gitignore
-├── README.md
-└── LICENSE
+├── jars/
+│   └── postgresql-42.7.13.jar
 ```
 
 ### Folder Description
@@ -143,11 +130,11 @@ olist-ml-feature-pipeline/
 - Kafka consumer implementation
 - Spark preprocessing pipeline
 - Spark feature engineering pipeline
-- Parquet feature storage
+- Apache Parquet feature storage
+- PostgreSQL feature store integration
 
 ### Phase 3 - In Progress
 
-- PostgreSQL feature store
 - FastAPI REST API
 - Apache Airflow orchestration
 - End-to-end pipeline validation
@@ -171,7 +158,7 @@ The complete Olist Brazilian E-Commerce dataset is stored locally under `data/ra
 
 ## Current Project Status
 
-The project currently includes a fully operational Apache Kafka ingestion pipeline together with a modular Apache Spark preprocessing and feature engineering pipeline. Engineered features are stored in Apache Parquet format. Development is now focused on integrating PostgreSQL as the feature store, followed by FastAPI for feature delivery and Apache Airflow for workflow orchestration
+The project currently includes a complete Apache Kafka ingestion pipeline, a modular Apache Spark preprocessing and feature engineering pipeline, Apache Parquet storage, and PostgreSQL feature store integration. Development is now focused on implementing the FastAPI service for feature delivery, followed by Apache Airflow for workflow orchestration and complete pipeline automation.
 
 ---
 
@@ -208,13 +195,38 @@ python services/spark/spark_job.py
 
 ## Project Highlights
 
+- Modular microservices architecture
+- Docker Compose based Infrastructure as Code (IaC)
 - Apache Kafka producer and consumer
 - Apache Spark preprocessing pipeline
 - Apache Spark feature engineering
 - Apache Parquet feature storage
-- Modular microservices architecture
+- PostgreSQL feature store
 
 ---
+
+## Pipeline Workflow
+
+The current implementation follows the workflow below:
+
+```text
+Olist CSV Dataset
+        │
+        ▼
+Apache Kafka Producer
+        │
+        ▼
+Apache Kafka Topic
+        │
+        ▼
+Apache Spark
+   ├── Data Preprocessing
+   ├── Feature Engineering
+        │
+        ├──────────────┐
+        ▼              ▼
+Apache Parquet   PostgreSQL Feature Store
+```
 
 ## Academic Context
 
@@ -234,12 +246,11 @@ python services/spark/spark_job.py
 
 ## Future Enhancements
 
-- Integrate PostgreSQL as the feature store
 - Build a FastAPI service for feature delivery
 - Orchestrate the complete pipeline using Apache Airflow
 - Add monitoring and structured logging
 - Add automated testing
-- Deploy the pipeline in a cloud environment
+- Deploy the pipeline to a cloud platform
 
 ---
 

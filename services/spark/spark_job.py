@@ -5,10 +5,12 @@ from config import (
     MASTER,
     RAW_DATA_PATH,
     PROCESSED_DATA_PATH,
+    POSTGRES_JDBC_DRIVER,
 )
 
 from feature_engineering import create_features
 from preprocessing import clean_orders
+from postgres_writer import write_to_postgres
 
 
 def main():
@@ -17,6 +19,7 @@ def main():
         SparkSession.builder
         .appName(APP_NAME)
         .master(MASTER)
+        .config("spark.jars", POSTGRES_JDBC_DRIVER)
         .getOrCreate()
     )
 
@@ -43,6 +46,8 @@ def main():
     features.show(5, truncate=False)
 
     features.write.mode("overwrite").parquet(PROCESSED_DATA_PATH)
+
+    write_to_postgres(features)
 
     print("Features saved successfully")
 
