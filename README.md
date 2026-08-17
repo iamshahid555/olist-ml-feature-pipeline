@@ -23,11 +23,14 @@ This project is being developed incrementally following an infrastructure-first 
 |----------|:------:|
 | Project Structure | ✅ |
 | Docker Compose | ✅ |
-| PostgreSQL | ✅ |
-| Apache Kafka | ✅ |
+| PostgreSQL Infrastructure | ✅ |
 | Dataset Preparation | ✅ |
-| Kafka Producer | ✅ |
-| Apache Spark | ⏳ Planned |
+| Apache Kafka Producer | ✅ |
+| Apache Kafka Consumer | ✅ |
+| Apache Spark Preprocessing | ✅ |
+| Apache Spark Feature Engineering | ✅ |
+| Parquet Feature Store | ✅ |
+| PostgreSQL Feature Store | 🔄 In Progress |
 | FastAPI | ⏳ Planned |
 | Apache Airflow | ⏳ Planned |
 
@@ -50,7 +53,8 @@ This project is being developed incrementally following an infrastructure-first 
 | Component | Technology | Purpose |
 |------------|------------|------------|
 | Data Ingestion | Apache Kafka | Scheduled data ingestion |
-| Data Storage | Local File System (CSV) | Raw dataset storage during development (planned HDFS deployment) |
+| Raw Data Storage | CSV Files | Raw Olist dataset |
+| Processed Data Storage | Apache Parquet | Engineered feature dataset |
 | Processing Engine | Apache Spark | Feature engineering and aggregation |
 | Workflow Orchestration | Apache Airflow | Pipeline scheduling and management |
 | Feature Store | PostgreSQL | Storage of processed features |
@@ -90,19 +94,24 @@ olist-ml-feature-pipeline/
 │   │   └── main.py
 │   ├── kafka/
 │   │   ├── producer.py
-│   │   ├── config.py
-│   │   └── README.md
+│   │   ├── consumer.py
+│   │   └── config.py
 │   ├── postgres/
 │   │   ├── init.sql
-│   │   └── README.md
+│   │   └── db.py
 │   └── spark/
+│       ├── spark_job.py
+│       ├── preprocessing.py
+│       ├── feature_engineering.py
+│       ├── config.py
+│       ├── requirements.txt
+│       └── __init__.py
 │
 ├── docker-compose.yml
-├── .env
 ├── requirements.txt
 ├── .gitignore
-├── LICENSE
-└── README.md
+├── README.md
+└── LICENSE
 ```
 
 ### Folder Description
@@ -127,20 +136,23 @@ olist-ml-feature-pipeline/
 - Dataset selection
 - Infrastructure planning
 
-### Phase 2 - In Progress
+### Phase 2 - Completed
 
 - Docker Compose environment
-- Kafka ingestion service
-- Spark batch processing jobs
+- Kafka producer implementation
+- Kafka consumer implementation
+- Spark preprocessing pipeline
+- Spark feature engineering pipeline
+- Parquet feature storage
+
+### Phase 3 - In Progress
+
 - PostgreSQL feature store
-- FastAPI service
-- Airflow orchestration
-
-### Phase 3 - Planned
-
+- FastAPI REST API
+- Apache Airflow orchestration
 - End-to-end pipeline validation
 - Performance testing
-- Documentation and project reflection
+- Final documentation
 
 ---
 
@@ -159,33 +171,48 @@ The complete Olist Brazilian E-Commerce dataset is stored locally under `data/ra
 
 ## Current Project Status
 
-The project is currently in the implementation phase. Docker Compose, PostgreSQL, Apache Kafka, and the project infrastructure have been successfully configured. Development is now focused on implementing the Kafka ingestion service, Spark-based feature engineering pipeline, PostgreSQL feature store, FastAPI endpoints, and Apache Airflow orchestration.
+The project currently includes a fully operational Apache Kafka ingestion pipeline together with a modular Apache Spark preprocessing and feature engineering pipeline. Engineered features are stored in Apache Parquet format. Development is now focused on integrating PostgreSQL as the feature store, followed by FastAPI for feature delivery and Apache Airflow for workflow orchestration
 
 ---
+
+## Prerequisites
+
+Before running the project, install:
+
+- Python 3.13+
+- OpenJDK 17
+- Docker Desktop
+- Git
+- Homebrew (macOS)
 
 ## Local Development
 
 ```bash
 git clone https://github.com/iamshahid555/olist-ml-feature-pipeline.git
 cd olist-ml-feature-pipeline
+
 python3 -m venv .venv
 source .venv/bin/activate
+
 pip install -r requirements.txt
+pip install -r services/spark/requirements.txt
+
 docker compose up -d
+
 python services/kafka/producer.py
+python services/kafka/consumer.py
+python services/spark/spark_job.py
 ```
 
 ---
 
 ## Project Highlights
 
+- Apache Kafka producer and consumer
+- Apache Spark preprocessing pipeline
+- Apache Spark feature engineering
+- Apache Parquet feature storage
 - Modular microservices architecture
-- Docker Compose based Infrastructure as Code (IaC)
-- Apache Kafka for data ingestion
-- PostgreSQL feature store
-- Apache Spark based feature engineering (planned)
-- Apache Airflow workflow orchestration (planned)
-- FastAPI service for feature delivery (planned)
 
 ---
 
@@ -207,12 +234,12 @@ python services/kafka/producer.py
 
 ## Future Enhancements
 
-- Complete Kafka-based data ingestion
-- Implement Apache Spark feature engineering jobs
-- Store engineered features in PostgreSQL
-- Expose feature tables through FastAPI
-- Orchestrate the pipeline with Apache Airflow
-- Improve monitoring, logging, and automated testing
+- Integrate PostgreSQL as the feature store
+- Build a FastAPI service for feature delivery
+- Orchestrate the complete pipeline using Apache Airflow
+- Add monitoring and structured logging
+- Add automated testing
+- Deploy the pipeline in a cloud environment
 
 ---
 
