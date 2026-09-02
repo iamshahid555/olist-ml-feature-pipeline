@@ -1,12 +1,12 @@
 # Olist ML Feature Pipeline
 
-![Python]([https://img.shields.io/badge/Python-3.13-blue?logo=python](https://img.shields.io/badge/Python-3.13-blue?logo=python))
-![Docker]([https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker))
-![Kafka]([https://img.shields.io/badge/Apache-Kafka-231F20?logo=apachekafka](https://img.shields.io/badge/Apache-Kafka-231F20?logo=apachekafka))
-![Spark]([https://img.shields.io/badge/Apache-Spark-E25A1C?logo=apachespark](https://img.shields.io/badge/Apache-Spark-E25A1C?logo=apachespark))
-![Airflow]([https://img.shields.io/badge/Apache-Airflow-017CEE?logo=apacheairflow](https://img.shields.io/badge/Apache-Airflow-017CEE?logo=apacheairflow))
-![PostgreSQL]([https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql))
-![FastAPI]([https://img.shields.io/badge/FastAPI-009688?logo=fastapi](https://img.shields.io/badge/FastAPI-009688?logo=fastapi))
+![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python)
+![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker)
+![Kafka](https://img.shields.io/badge/Apache-Kafka-231F20?logo=apachekafka)
+![Spark](https://img.shields.io/badge/Apache-Spark-E25A1C?logo=apachespark)
+![Airflow](https://img.shields.io/badge/Apache-Airflow-017CEE?logo=apacheairflow)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi)
 
 A production-inspired batch data engineering project that demonstrates a complete machine learning feature pipeline using Apache Kafka, Apache Spark, PostgreSQL, Apache Airflow, FastAPI, and Docker Compose.
 
@@ -35,7 +35,7 @@ This project is being developed incrementally following an infrastructure-first 
 | FastAPI | ✅ |
 | Apache Airflow | 🔄 In Progress |
 
-**---**
+---
 
 ## Project Goals
 
@@ -49,7 +49,7 @@ This project is being developed incrementally following an infrastructure-first 
 - Apply reliability, scalability, and maintainability principles
 - Demonstrate an end-to-end data engineering workflow
 
-**---**
+---
 
 ## Technology Stack
 
@@ -65,7 +65,7 @@ This project is being developed incrementally following an infrastructure-first 
 | Containerization | Docker Compose | Reproducible infrastructure |
 | Version Control | Git & GitHub | Source control and project management |
 
-**---**
+---
 
 ## Architecture
 
@@ -74,7 +74,7 @@ The architecture diagram for the batch-processing pipeline is available in `docs
 The implemented pipeline currently consists of Apache Kafka for ingestion, Apache Spark for preprocessing and feature engineering, Apache Parquet and PostgreSQL for feature storage, and FastAPI for feature delivery.
 Apache Airflow is currently being implemented as the workflow orchestration layer.
 
-**---**
+---
 
 ## Repository Structure
 
@@ -132,7 +132,7 @@ olist-ml-feature-pipeline/
 └── README.md
 ```
 
-**### Folder Description**
+### Folder Description
 
 | Folder            | Description                                                                    |
 | ----------------- | ------------------------------------------------------------------------------ |
@@ -146,16 +146,16 @@ olist-ml-feature-pipeline/
 | services/spark    | Spark preprocessing and feature engineering pipeline                          |
 | jars              | PostgreSQL JDBC driver used for Spark database integration                    |
 
-**## Development Roadmap**
+## Development Roadmap
 
-**### Phase 1 - Completed**
+### Phase 1 - Completed
 
 - Architecture design
 - Technology selection
 - Dataset selection
 - Infrastructure planning
 
-**### Phase 2 - Completed**
+### Phase 2 - Completed
 
 - Docker Compose environment
 - Kafka producer implementation
@@ -166,14 +166,15 @@ olist-ml-feature-pipeline/
 - PostgreSQL feature store integration
 - FastAPI REST API for feature serving
 
-**### Phase 3 — In Progress**
+### Phase 3 — In Progress
 
-- Apache Airflow workflow orchestration - In Progress
+- FastAPI REST API for feature serving — Completed
+- Apache Airflow workflow orchestration — In Progress
 - End-to-end pipeline validation
 - Performance testing
 - Final documentation
 
-**---**
+---
 
 ## Dataset
 
@@ -186,13 +187,14 @@ olist-ml-feature-pipeline/
 
 The complete Olist Brazilian E-Commerce dataset is stored locally under `data/raw/`. Processed datasets and engineered feature tables generated during the pipeline execution will be written to `data/processed/`.
 
-**---**
+---
 
 ## Current Project Status
 
-The project currently includes a complete Apache Kafka ingestion pipeline, a modular Apache Spark preprocessing and feature engineering pipeline, Apache Parquet storage, PostgreSQL feature store integration, and a FastAPI service for serving engineered features through a REST API. Development is now focused on implementing Apache Airflow for workflow orchestration, followed by complete end-to-end pipeline validation, performance testing, and final documentation.
+The project currently includes a complete Apache Kafka ingestion pipeline, a modular Apache Spark preprocessing and feature engineering pipeline, Apache Parquet storage, PostgreSQL feature store integration, and a FastAPI service for serving engineered features through a REST API.
+The remaining major implementation task is Apache Airflow workflow orchestration. After Airflow integration, the project will undergo end-to-end pipeline validation, performance testing, and final documentation.
 
-**---**
+---
 
 ## Prerequisites
 
@@ -204,10 +206,10 @@ Before running the project, install:
 - Git
 - Homebrew (macOS)
 
-**## Local Development**
+## Local Development
 
 ```bash
-git clone [https://github.com/iamshahid555/olist-ml-feature-pipeline.git](https://github.com/iamshahid555/olist-ml-feature-pipeline.git)
+git clone https://github.com/iamshahid555/olist-ml-feature-pipeline.git
 cd olist-ml-feature-pipeline
 
 python3 -m venv .venv
@@ -229,7 +231,7 @@ Once the PostgreSQL feature store is running and populated, the API is available
 
 The service provides `GET /` for an API status message, `GET /health` for database connectivity, and `GET /features/{order_id}` to retrieve engineered features for a specific order.
 
-**---**
+---
 
 ## Project Highlights
 
@@ -241,8 +243,9 @@ The service provides `GET /` for an API status message, `GET /health` for databa
 - Apache Parquet feature storage
 - PostgreSQL feature store
 - FastAPI REST API for feature serving
+- Apache Airflow workflow orchestration (in progress)
 
-**---**
+---
 
 ## Pipeline Workflow
 
@@ -250,34 +253,45 @@ The current implementation follows the workflow below:
 
 ```text
 Olist CSV Dataset
-       │
-       ├──────────────► Apache Kafka Producer
-       │                    │
-       │                    ▼
-       │              Apache Kafka Topic
-       │                    │
-       │                    ▼
-       │              Kafka Consumer
-       │
-       ▼
+        │
+        ▼
+Apache Kafka Producer
+        │
+        ▼
+Apache Kafka Topic
+        │
+        ▼
+Apache Kafka Consumer
+        │
+        ▼
 Apache Spark
    ├── Data Preprocessing
-   ├── Feature Engineering
-       │
-       ├──────────────┐
-       ▼              ▼
-Apache Parquet   PostgreSQL Feature Store
-                       │
-                       ▼
-                FastAPI REST API
+   └── Feature Engineering
+        │
+        ├──────────────────┐
+        ▼                  ▼
+Apache Parquet     PostgreSQL Feature Store
+                           │
+                           ▼
+                     FastAPI REST API
+                           │
+                           ▼
+                    Feature Consumers
+
+Apache Airflow
+      │
+      └── Workflow orchestration
+          (implementation in progress)
 ```
 
-**## Academic Context**
+Once Airflow is completed, it will orchestrate the pipeline stages and provide scheduled workflow execution.
+
+## Academic Context
 
 **Course:** DLMDSEDE02 – Data Engineering Portfolio Project  
 **Institution:** IU International University of Applied Sciences
 
-**### Focus Areas**
+### Focus Areas
 
 - Batch Processing
 - Data Engineering
@@ -285,18 +299,21 @@ Apache Parquet   PostgreSQL Feature Store
 - Infrastructure as Code
 - Feature Engineering
 - Machine Learning Pipelines
+- Workflow Orchestration
+- Feature Serving
 
-**---**
+---
 
 ## Future Enhancements
 
-- Extend the FastAPI service with list, filter, and pagination endpoints
-- Orchestrate the complete pipeline using Apache Airflow
+- Complete Apache Airflow workflow orchestration
+- Perform end-to-end pipeline validation
 - Add monitoring and structured logging
 - Add automated testing
+- Conduct performance testing
 - Deploy the pipeline to a cloud platform
 
-**---**
+---
 
 ## License
 
