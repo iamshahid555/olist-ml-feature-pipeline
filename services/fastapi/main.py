@@ -1,99 +1,119 @@
-from typing import Dict, List, Optional
 import os
-from fastapi import FastAPI, HTTPException, Depends
+
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from sqlalchemy import Column, Integer, String, Float, JSON, create_engine, MetaData, Table
+from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
-from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = os.environ.get("DATABASE_URL")  # e.g. postgresql://user:pass@host:5432/dbname
-USE_SQLITE_FALLBACK = DATABASE_URL is None
+from .schema import OrderFeatures
 
-if USE_SQLITE_FALLBACK:
-    DATABASE_URL = "sqlite:///./example.db"
 
-engine: Engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {})
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-metadata = MetaData()
-
-features_table = Table(
-    "orders_features",
-    metadata,
-    Column("id", Integer, primary_key=True, autoincrement=True),
-    Column("order_id", String, unique=True, index=True, nullable=False),
-    Column("features", JSON, nullable=False),
+DATABASE_URL = os.environ.get(
+    "DATABASE_URL",
+    "postgresql+psycopg://admin:admin123@localhost:5432/feature_store"
 )
 
-app = FastAPI(title="Olist Feature API", version="0.2")
+engine: Engine = create_engine(DATABASE_URL)
+
+
+app = FastAPI(
+    title="Olist ML Feature API",
+    description="API for serving engineered Olist order features.",
+    version="1.0.0",
+)
 
 
 class Health(BaseModel):
     status: str
-    components: Dict[str, str]
+    database: str
 
 
-class TableInfo(BaseModel):
-    name: str
-    rows: int
-    updated_at: Optional[str] = None
+@app.get("/", tags=["General"])
+def root():
+    return {
+        "message": "Olist ML Feature API is running"
+    }
 
 
-class FeatureRow(BaseModel):
-    order_id: str
-    features: Dict[str, float]
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
-@app.on_event("startup")
-def startup():
-    # create tables if using sqlite fallback
-    metadata.create_all(bind=engine)
-    # seed sample data if table empty
-    with SessionLocal() as db:
-        result = db.execute(features_table.select().limit(1)).fetchone()
-        if result is None:
-            sample = {"order_id": "ORDER_123", "features": {"delivery_time": 3.4, "review_score": 4.2}}
-            db.execute(features_table.insert().values(**sample))
-            db.commit()
-
-
-@app.get("/health", response_model=Health)
+@app.get("/health", response_model=Health, tags=["General"])
 def health():
-    # Lightweight checks; in production expand to real probes
-    components = {"kafka": "unknown", "spark": "unknown", "postgres": "unknown", "airflow": "unknown"}
-    # mark postgres ok if DB reachable
     try:
-        with engine.connect() as conn:
-            conn.execute("SELECT 1")
-        components["postgres"] = "ok"
+        with engine.connect() as connection:
+            connection.execute(text("SELECT 1"))
+
+        return {
+            "status": "healthy",
+            "database": "connected"
+        }
+
     except Exception:
-        components["postgres"] = "unavailable"
-    return {"status": "ok", "components": components}
+        return {
+            "status": "unhealthy",
+            "database": "unavailable"
+        }
 
 
-@app.get("/tables", response_model=List[TableInfo])
-def list_tables(db=Depends(get_db)):
-    count = db.execute(features_table.count()).scalar() if engine.dialect.name != "sqlite" else db.execute(features_table.count()).scalar()
-    return [{"name": "orders_features", "rows": int(count), "updated_at": None}]
+@app.get(
+    "/features/{order_id}",
+    response_model=OrderFeatures,
+    tags=["Features"]
+)
+def get_order_features(order_id: str):
 
+    query = text(
+        """
+        SELECT
+            order_id,
+            customer_id,
+            order_status,
+            order_purchase_timestamp,
+            order_approved_at,
+            order_delivered_carrier_date,
+            order_delivered_customer_date,
+            order_estimated_delivery_date,
+            delivery_time_days,
+            carrier_delivery_days,
+            delivery_delay_days,
+            processing_time_days,
+            purchase_year,
+            purchase_month,
+            purchase_day,
+            purchase_weekday,
+            is_delivered
+        FROM orders_features
+        WHERE order_id = :order_id
+        """
+    )
 
-@app.get("/features", response_model=FeatureRow)
-def get_features(order_id: str, db=Depends(get_db)):
-    row = db.execute(features_table.select().where(features_table.c.order_id == order_id)).fetchone()
+    try:
+        with engine.connect() as connection:
+            result = connection.execute(
+                query,
+                {"order_id": order_id}
+            )
+
+            row = result.mappings().first()
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Database error: {exc}"
+        )
+
     if row is None:
-        raise HTTPException(status_code=404, detail="order not found")
-    return {"order_id": row["order_id"], "features": row["features"]}
+        raise HTTPException(
+            status_code=404,
+            detail="Order features not found"
+        )
+
+    return dict(row)
 
 
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 8000))
+    )
