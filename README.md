@@ -33,7 +33,7 @@ This project is being developed incrementally following an infrastructure-first 
 | Apache Parquet Feature Store | ✅ |
 | PostgreSQL Feature Store | ✅ |
 | FastAPI | ✅ |
-| Apache Airflow | 🔄 In Progress |
+| Apache Airflow | ✅ |
 
 ---
 
@@ -72,7 +72,7 @@ This project is being developed incrementally following an infrastructure-first 
 The architecture diagram for the batch-processing pipeline is available in `docs/architecture.svg` and illustrates the end-to-end data flow from ingestion and storage to feature engineering and delivery.
 
 The implemented pipeline currently consists of Apache Kafka for ingestion, Apache Spark for preprocessing and feature engineering, Apache Parquet and PostgreSQL for feature storage, and FastAPI for feature delivery.
-Apache Airflow is currently being implemented as the workflow orchestration layer.
+Apache Airflow is implemented as the workflow orchestration layer.
 
 ---
 
@@ -169,9 +169,9 @@ olist-ml-feature-pipeline/
 ### Phase 3 — In Progress
 
 - FastAPI REST API for feature serving — Completed
-- Apache Airflow workflow orchestration — In Progress
-- End-to-end pipeline validation
-- Performance testing
+- Apache Airflow workflow orchestration — Completed
+- End-to-end pipeline validation — Completed
+- Performance testing — Completed
 - Final documentation
 
 ---
@@ -192,7 +192,7 @@ The complete Olist Brazilian E-Commerce dataset is stored locally under `data/ra
 ## Current Project Status
 
 The project currently includes a complete Apache Kafka ingestion pipeline, a modular Apache Spark preprocessing and feature engineering pipeline, Apache Parquet storage, PostgreSQL feature store integration, and a FastAPI service for serving engineered features through a REST API.
-The remaining major implementation task is Apache Airflow workflow orchestration. After Airflow integration, the project will undergo end-to-end pipeline validation, performance testing, and final documentation.
+The implementation has been validated through successful end-to-end Airflow runs, followed by performance testing. Final documentation remains in progress.
 
 ---
 
@@ -243,7 +243,7 @@ The service provides `GET /` for an API status message, `GET /health` for databa
 - Apache Parquet feature storage
 - PostgreSQL feature store
 - FastAPI REST API for feature serving
-- Apache Airflow workflow orchestration (in progress)
+- Apache Airflow workflow orchestration
 
 ---
 
@@ -281,10 +281,10 @@ Apache Parquet     PostgreSQL Feature Store
 Apache Airflow
       │
       └── Workflow orchestration
-          (implementation in progress)
+          (implemented)
 ```
 
-Once Airflow is completed, it will orchestrate the pipeline stages and provide scheduled workflow execution.
+Apache Airflow orchestrates the pipeline stages and provides workflow execution through the configured DAG.
 
 ## Academic Context
 
