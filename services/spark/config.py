@@ -1,3 +1,5 @@
+import os
+
 RAW_DATA_PATH = "data/raw/olist_orders_dataset.csv"
 
 PROCESSED_DATA_PATH = "data/processed/orders_features.parquet"
@@ -8,7 +10,7 @@ MASTER = "local[*]"
 
 # PostgreSQL Configuration
 
-POSTGRES_HOST = "localhost"
+POSTGRES_HOST = os.getenv("POSTGRES_HOST", "localhost")
 POSTGRES_PORT = "5432"
 
 POSTGRES_DATABASE = "feature_store"

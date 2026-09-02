@@ -1,10 +1,14 @@
+import os
 from confluent_kafka import Producer
 import pandas as pd
 import json
 
 # Kafka configuration
 conf = {
-    "bootstrap.servers": "localhost:9092"
+    "bootstrap.servers": os.getenv(
+        "KAFKA_BOOTSTRAP_SERVERS",
+        "localhost:9092"
+    )
 }
 
 producer = Producer(conf)
